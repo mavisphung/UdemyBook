@@ -2,7 +2,9 @@
 A training project using C#
 
 # Description
-This project is only for training. Not for work.
+- The main purpose is only for training. Not for work or eCommerce.
+- The idea is basaed on [Udemy](https://www.udemy.com/)'s Design.
+- The project will be updated later.
 
 # Technologies
 1. ASP.NET 5
