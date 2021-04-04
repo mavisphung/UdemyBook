@@ -3,7 +3,7 @@ A training project using C#
 
 # Description
 - The main purpose is only for training. Not for work or eCommerce.
-- The idea is basaed on [Udemy](https://www.udemy.com/)'s Design.
+- The idea is based on [Udemy](https://www.udemy.com/)'s Design.
 - The project will be updated later.
 
 # Technologies
