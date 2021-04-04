@@ -1,0 +1,163 @@
+﻿@model UdemyBook.Models.ViewModels.DetailVM
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var product = Model.Cart.Product;
+}
+
+<!-- jumbotron -->
+<div class="jumbotron jumbotron-fluid background-dark-C1 py-2">
+    <div class="container">
+        <form method="post" class="row">
+            <input asp-for="Cart.ProductId" hidden />
+            <div class="col-md-7 text-white mt-2">
+                <h3>@product.Title</h3>
+                @Html.Raw(product.Description)
+                <p>
+                    <span class="text-yellow">
+                        4.4
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star-half-full" aria-hidden="true"></i>&nbsp;
+                    </span>
+                    (15,947 ratings) &nbsp;
+                    Estimately 1000 books sold
+                </p>
+                <p>Created by <a href="#" class="text-pink text-decoration-none" id="authorName">@product.Author.Name</a></p>
+                <p class="d-inline-block"><i class="fa fa-warning"></i> Last updated: @DateTime.Now.ToString("MM/dd/yyyy")</p>
+                &nbsp;
+                <p class="d-inline-block"><i class="fa fa-globe"></i> @product.Language</p>
+                &nbsp;
+                <p class="d-inline-block"><i class="fa fa-cc"></i> English, French, more...</p>
+                <div class="row mb-3">
+                    <div class="col-6 col-md-6">
+                        <a href="#" class="btn btn-outline-light w-100">Wishlist <i class="fa fa-heart-o"></i></a>
+                    </div>
+                    <div class="col-6 col-md-6">
+                        <a href="#" class="btn btn-outline-light w-100">Share <i class="fa fa-mail-forward"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <img src="@product.ImageUrl" class="w-100 img-fluid mt-2 mb-3 rounded" alt="">
+                <a href="#" class="btn btn-outline-light w-100 mb-2">Gift this book to your friend <i class="fa fa-odnoklassniki"></i></a>
+                <button type="submit" class="btn btn-outline-light w-100 mb-3">Add to your cart <i class="fa fa-shopping-basket"></i></button>
+            </div>
+        </form>
+
+
+    </div>
+</div>
+<!-- end jumbotron -->
+<!-- what we will learn-->
+<section id="WhatWillLearn">
+    <div class="container">
+        <h4>What you’ll learn when you buy this book</h4>
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <p><i class="fa fa-check-square"></i>&nbsp; Have an intermediate skill level of Python programming.</p>
+                <p><i class="fa fa-check-square"></i>&nbsp; Use the Jupyter Notebook Environment.</p>
+                <p><i class="fa fa-check-square"></i>&nbsp; Use the numpy library to create and manipulate arrays.</p>
+                <p><i class="fa fa-check-square"></i>&nbsp; Use the pandas module with Python to create and structure data.</p>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <p><i class="fa fa-check-square"></i>&nbsp; Learn how to work with various data formats within python, including: JSON,HTML, and MS Excel Worksheets.</p>
+                <p><i class="fa fa-check-square"></i>&nbsp; Create data visualizations using matplotlib and the seaborn modules with python.</p>
+                <p><i class="fa fa-check-square"></i>&nbsp; Have a portfolio of various data analysis projects.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end what we will learn-->
+<!-- Author-->
+<section id="author">
+    <div class="container mt-4">
+        <h4>Author</h4>
+        <div class="row">
+            <!-- author column-->
+            <div class="col-12 col-md-8">
+                <h5 class="text-pink"><strong>@product.Author.Name</strong></h5>
+                <p><small>Head of Data Science, Flick Sư CS:GO Inc.</small></p>
+                @*<p><small>@product.Author.Description</small></p>*@
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-4 mb-5">
+                        <img src="@product.Author.ImageUrl" class="w-100 img-fluid" alt="">
+                    </div>
+                    <div class="col-sm-12 col-md-8">
+                        <p>
+                            <i class="fa fa-star text-yellow"></i>
+                            &nbsp;
+                            5.0 Instructor Rating
+                        </p>
+                        <p>
+                            <i class="fa fa-star text-yellow"></i>
+                            &nbsp;
+                            725,202 Reviews
+                        </p>
+                        <p>
+                            <i class="fa fa-star text-yellow"></i>
+                            &nbsp;
+                            2,217,385 Subcribers
+                        </p>
+                        <p>
+                            <i class="fa fa-star text-yellow"></i>
+                            &nbsp;
+                            32 Books
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- end author column-->
+            <!-- brief introduction -->
+            <div class="col-12">
+                @Html.Raw(product.Author.Description)
+            </div>
+            <!-- end brief introduction -->
+        </div>
+    </div>
+</section>
+<!-- end Author-->
+<!-- people use to buy-->
+<div class="container mt-5">
+    <h4 class="font-weight-normal text-dark">People use to buy</h4>
+    <!-- owl carousel -->
+    <div class="owl-carousel owl-theme owl-loaded">
+        <div class="owl-stage-outer">
+            <div class="owl-stage">
+                @foreach (var book in Model.UsedToBuyList)
+                {
+                    <!-- a book -->
+                    <div class="owl-item">
+                        <div class="card w-100 border-none">
+                            <a asp-area="Customer" asp-controller="Products" asp-action="Detail" asp-route-id="@book.ID">
+                                <img class="card-img-top p-1 w-100" src="@book.ImageUrl" alt="Card image">
+                            </a>
+                            <div class="card-body p-1">
+                                <a asp-area="Customer" asp-controller="Products" asp-action="Detail" asp-route-id="@book.ID" class="text-decoration-none text-dark">
+                                    <h6 class="card-title">@book.Title</h6>
+                                </a>
+                                <p class="card-text">@book.Author.Name</p>
+                                <p class="card-text">
+                                    <span class="text-primary">
+                                        4.5&nbsp;
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star-half-empty" aria-hidden="true"></i>
+                                    </span>
+                                </p>
+                                <h5 class="card-title font-weight-bold">$@book.Price</h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- end owl carousel -->
+</div>
+<!-- end people use to buy-->

@@ -1,0 +1,269 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model UdemyBook.Models.ViewModels.CustomerHomeVM
+@using UdemyBook.Ultility
+
+<!-- banner-->
+<div class="container-fluid">
+    <img src="~/images/banner.png" class="w-100 img-fluid" alt="Banner" />
+</div>
+<!-- below banner-->
+<div class="container">
+    <div class="row my-3">
+        <!-- column 1 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="container">
+                <div class="row background-grey py-3">
+                    <div class="col-4 text-center pb-2">
+                        <h1 class="font-bigger mb-0"><i class="fa fa-book" aria-hidden="true"></i></h1>
+                    </div>
+                    <div class="col-8">
+                        <h5>130,000 Books</h5>
+                        <p class="mb-0">Enjoy a variety of fresh topics</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end column 1 -->
+        <!-- column 2 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="container">
+                <div class="row background-grey py-3">
+                    <div class="col-4 text-center pb-2">
+                        <h1 class="font-bigger mb-0"><i class="fa fa-life-saver" aria-hidden="true"></i></h1>
+                    </div>
+                    <div class="col-8">
+                        <h5>Online Support</h5>
+                        <p class="mb-0">Support anytime as soon as possible</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end column 2 -->
+        <!-- column 3 -->
+        <div class="col-12 col-md-6 col-lg-4" id="column-3rd">
+            <div class="container">
+                <div class="row background-grey py-3">
+                    <div class="col-4 text-center pb-2">
+                        <h1 class="font-bigger mb-0"><i class="fa fa-shopping-cart" aria-hidden="true"></i></h1>
+                    </div>
+                    <div class="col-8">
+                        <h5>Deliveries</h5>
+                        <p class="mb-0">Ship to any country</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end column 3 -->
+    </div>
+</div>
+<!-- end 3 below-banner -->
+<hr>
+<section id="selection">
+    <div class="container">
+        <h3>The world's largest selection of books</h3>
+        <p>Choose from 130,000 books and e-books with new additions published every month</p>
+        <!-- nav tab -->
+        <ul class="nav nav-tabs">
+            @foreach (var item in Model.HashTable)
+            {
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#@item.Key">@item.Key</a>
+                </li>
+            }
+            <li class="nav-item">
+                <a class="nav-link disabled">Swipe left or right for more books</a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            @foreach (var item in Model.HashTable)
+            {
+                <!-- @item.Key tab -->
+                <div class="tab-pane container" id="@item.Key">
+                    <!-- owl carousel -->
+                    <div class="owl-carousel owl-theme owl-loaded">
+                        <div class="owl-stage-outer">
+                            <div class="owl-stage">
+                                @foreach (var book in item.Value)
+                                {
+                                    <!-- a book -->
+                                    <div class="owl-item">
+                                        <div class="card w-100 border-none">
+                                            <a asp-area="Customer" asp-controller="Products" asp-action="Detail" asp-route-id="@book.ID">
+                                                <img class="card-img-top p-1 w-100" src="@book.ImageUrl" alt="Card image">
+                                            </a>
+                                            <div class="card-body p-1">
+                                                <a asp-area="Customer" asp-controller="Products" asp-action="Detail" asp-route-id="@book.ID" class="text-decoration-none text-dark">
+                                                    <h6 class="card-title">@book.Title</h6>
+                                                </a>
+                                                <p class="card-text">@book.Author.Name</p>
+                                                <p class="card-text">
+                                                    <span class="text-primary">
+                                                        4.5&nbsp;
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star-half-empty" aria-hidden="true"></i>
+                                                    </span>
+                                                </p>
+                                                <h5 class="card-title font-weight-bold">$@book.Price</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end owl carousel -->
+                </div>
+                <!-- end @item.Key tab -->
+            }
+        </div>
+        <!-- end tab pane -->
+    </div>
+    <!-- end container -->
+</section>
+<!-- end selection section -->
+<hr>
+<!-- above suggestion -->
+<div class="container">
+    <div class="row my-3">
+        <!-- column 1 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="container">
+                <div class="row background-grey py-3">
+                    <div class="col-4 text-center pb-2">
+                        <h1 class="font-bigger mb-0"><i class="fa fa-clock-o" aria-hidden="true"></i></h1>
+                    </div>
+                    <div class="col-8 pt-2">
+                        <h5>Go at your own pace</h5>
+                        <p class="mb-0">Read when you are free</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end column 1 -->
+        <!-- column 2 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="container">
+                <div class="row background-grey py-3">
+                    <div class="col-4 text-center pb-2">
+                        <h1 class="font-bigger mb-0"><i class="fa fa-graduation-cap" aria-hidden="true"></i></h1>
+                    </div>
+                    <div class="col-8 pt-2">
+                        <h5>Learn from experts</h5>
+                        <p class="mb-0">The faster way to experience</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end column 2 -->
+        <!-- column 3 -->
+        <div class="col-12 col-md-6 col-lg-4" id="column-4th">
+            <div class="container">
+                <div class="row background-grey py-3">
+                    <div class="col-4 text-center pb-2">
+                        <h1 class="font-bigger mb-0"><i class="fa fa-hashtag" aria-hidden="true"></i></h1>
+                    </div>
+                    <div class="col-8 pt-2">
+                        <h5>The following marker</h5>
+                        <p class="mb-0">Use to mark your progress</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end column 3 -->
+    </div>
+</div>
+<!-- end above suggestion-->
+<section id="suggestion">
+    <div class="container my-5">
+        <h3>Suggest for you</h3>
+        <!-- owl carousel -->
+        <div class="owl-carousel owl-theme owl-loaded">
+            <div class="owl-stage-outer">
+                <div class="owl-stage">
+                    @{
+                        var suggestions = Model.SuggestList;
+                    }
+                    @foreach (var book in suggestions)
+                    {
+                        <!-- a book -->
+                        <div class="owl-item">
+                            <div class="card w-100 border-none">
+                                <a asp-area="Customer" asp-controller="Products" asp-action="Detail" asp-route-id="@book.ID">
+                                    <img class="card-img-top p-1 w-100" src="@book.ImageUrl" alt="Card image">
+                                </a>
+                                <div class="card-body p-1">
+                                    <a asp-area="Customer" asp-controller="Products" asp-action="Detail" asp-route-id="@book.ID" class="text-decoration-none text-dark">
+                                        <h6 class="card-title">@book.Title</h6>
+                                    </a>
+                                    <p class="card-text">@book.Author.Name</p>
+                                    <p class="card-text">
+                                        <span class="text-primary">
+                                            4.5&nbsp;
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star-half-empty" aria-hidden="true"></i>
+                                        </span>
+                                    </p>
+                                    <h5 class="card-title font-weight-bold">$@book.Price</h5>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <!-- end owl carousel -->
+    </div>
+</section>
+<!-- jumbotron -->
+<section id="jumbo">
+    <div class="jumbotron jumbotron-fluid background-dark">
+        <div class="container text-white text-center">
+            <h1>Get personal reading recommendations</h1>
+            <p>The most biggest community who love reading books</p>
+            <a @*asp-area="Identity" asp-page="/Account/Register"*@
+               href="/Identity/Account/Register"
+               class="btn btn-outline-dark text-decoration-none border-outline-white" id="btnGetStarted">
+                Get started
+            </a>
+        </div>
+    </div>
+</section>
+<!-- end jumbotron -->
+<!-- Top Categories -->
+<section id="TopCategories">
+    <div class="container my-5">
+        <h3>Top Categories</h3>
+        <div class="row">
+            @foreach (var category in Model.CategoriesList)
+            {
+                <!-- a category -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="card p-1">
+                        <a asp-area="Customer" 
+                           asp-controller="Categories" 
+                           asp-action="GetCategory" 
+                           asp-route-categoryName="Development"
+                           class="text-decoration-none text-dark">
+                            <div class="card-img-top">
+                                <img src="@category.ImageUrl" class="w-100" alt="">
+                            </div>
+                            <div class="card-footer">
+                                <h5>@category.Name</h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- end Top Categories -->

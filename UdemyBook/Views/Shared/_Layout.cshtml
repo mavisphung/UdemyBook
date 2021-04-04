@@ -1,0 +1,261 @@
+﻿@using UdemyBook.Ultility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - UdemyBook</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/main-styles.css">
+</head>
+<body>
+    <!-- header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/logo.png" alt="This is our logo"
+                         class="w-100 img-fluid">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <!-- <li class="nav-item active mr-2">
+                            <a class="nav-link" href="#">Categories <span class="sr-only">(current)</span></a>
+                          </li> -->
+                        <!-- Categories -->
+                        <li class="nav-item dropdown mr-3">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Categories
+                            </a>
+                            <div class="dropdown-menu multi-column" aria-labelledby="navbarDropdown">
+                                <ul class="dropdown-menu navbar">
+                                    <div class="row">
+                                        <div class="col-6 col-sm-4">
+                                            <li class="nav-item"><a asp-area="Customer" asp-controller="Categories" asp-action="GetCategory" asp-route-categoryName="Development" class="nav-link">Development</a></li>
+                                            <li class="nav-item"><a asp-area="Customer" asp-controller="Categories" asp-action="GetCategory" asp-route-categoryName="Design" class="nav-link">Design</a></li>
+                                            <li class="nav-item"><a asp-area="Customer" asp-controller="Categories" asp-action="GetCategory" asp-route-categoryName="Lifestyles" class="nav-link">Lifestyles</a></li>
+                                            <li class="nav-item"><a asp-area="Customer" asp-controller="Categories" asp-action="GetCategory" asp-route-categoryName="Business" class="nav-link">Business</a></li>
+                                            <li class="nav-item"><a href="#" class="nav-link">Fitness</a></li>
+                                            <li class="nav-item"><a href="#" class="nav-link">Beauty</a></li>
+                                        </div>
+                                        <div class="col-6 col-sm-4">
+                                            <li class="nav-item"><a href="#" class="nav-link">For male</a></li>
+                                            <li class="nav-item"><a href="#" class="nav-link">For female</a></li>
+                                            <li class="nav-item"><a href="#" class="nav-link">Dictionary</a></li>
+                                            <li class="nav-item"><a href="#" class="nav-link">Stories</a></li>
+                                            <li class="nav-item"><a href="#" class="nav-link">Self-Help</a></li>
+                                            <li class="nav-item"><a href="#" class="nav-link">IT & Software</a></li>
+                                        </div>
+                                        <div class="col-6 col-sm-4">
+                                            <li class="nav-item"><a href="#" class="nav-link">Health</a></li>
+                                            <li class="nav-item"><a href="#" class="nav-link">Games</a></li>
+                                            <li class="nav-item"><a href="#" class="nav-link">Magazine</a></li>
+                                            <li class="nav-item"><a href="#" class="nav-link">Manga</a></li>
+                                            <li class="nav-item"><a href="#" class="nav-link">Others</a></li>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- end Categories -->
+                        <!-- Search button -->
+                        <li class="nav-item">
+                            <form asp-area="Customer" asp-controller="Home" asp-action="Search" method="get">
+                                <div class="form-inline">
+                                    <div class="input-group round-left">
+                                        <div class="input-group-prepend">
+                                            <button id="btnSearch" class="btn round-left" type="submit">
+                                                <i class="fa fa-search" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                        <input type="search" name="search" id="search" class="form-control round-right"
+                                               placeholder="Search for anything">
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+                        <!-- end Search button -->
+                    </ul>
+                    <!-- end ul -->
+                    <!-- <a href="./yourCart.html" class="btn btn-info text-white"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+                      <button class="btn btn-dark text-white">Sign up</button> -->
+                    <div class="row">
+                        <div class="btn-group m-1">
+                            @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.ShoppingCartSs) != null)
+                            {
+                                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn text-dark">
+                                    @{
+                                        var count = HttpContextAccessor.HttpContext.Session.GetInt32(SD.ShoppingCartSs);
+                                    }
+                                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp;(@count)
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="#" class="btn text-dark">
+                                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp;(0)
+                                </a>
+                            }
+                        </div>
+                        @*<div class="btn-group m-1">
+                                <a href="signin.html" class="btn text-dark border-outline-dark">Sign in</a>
+                            </div>
+                            <div class="btn-group m-1">
+                                <a href="signup.html" class="btn btn-dark text-white">Sign up</a>
+                            </div>*@
+                        <partial name="_LoginPartial.cshtml" />
+                    </div>
+                </div>
+                <!-- end navbar collapse -->
+            </nav>
+        </div>
+    </header>
+    <!-- end header -->
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <footer id="footer">
+        <hr>
+        <div class="container text-center">
+            <h4 class="udlite-heading-xl">
+                Trusted by companies of all sizes
+            </h4>
+            <div class="logo-item">
+                <a href="#"><img src="~/images/booking-logo.svg" alt="booking" width="151" height="26"></a>
+            </div>
+            <div class="logo-item">
+                <a href="#"><img src="~/images/volkswagen-logo.svg" alt="volkswagen" width="32" height="32">
+            </div>
+            <div class="logo-item">
+                <a href="#"><img src="~/images/mercedes-logo-v2.svg" alt="mercedes" width="148" height="28"></a>
+            </div>
+            <div class="logo-item">
+                <a href="#"><img src="~/images/adidas-logo.svg" alt="adidas" width="47" height="32"></a>
+            </div>
+            <div class="logo-item">
+                <a href="#"><img src="~/images/eventbrite-logo.svg" alt="eventbrite" width="115" height="32"></a>
+            </div>
+        </div>
+        <hr>
+        <div class="container">
+            <div class="row">
+                <!-- column 1 -->
+                <div class="col-sm 6 col-lg-3">
+                    <ul class="udlite-ul-footer">
+                        <li class="my-1"><a href="#">Udemy for Business</a></li>
+                        <li class="my-1"><a href="#">Sell books on Udemy</a></li>
+                        <li class="my-1"><a href="#">Get the app</a></li>
+                        <li class="my-1"><a href="#">About us</a></li>
+                        <li class="my-1"><a href="#">Contact us</a></li>
+                    </ul>
+                </div>
+                <!-- column 2 -->
+                <div class="col-sm-6 col-lg-2">
+                    <ul class="udlite-ul-footer">
+                        <li class="my-1"><a href="#">Careers</a></li>
+                        <li class="my-1"><a href="#">Blog</a></li>
+                        <li class="my-1"><a href="#">Help and Support</a></li>
+                        <li class="my-1"><a href="#">Affiliate</a></li>
+                    </ul>
+                </div>
+                <!-- column 3 -->
+                <div class="col-sm-6 col-lg-2">
+                    <ul class="udlite-ul-footer">
+                        <li class="my-1"><a href="#">Terms</a></li>
+                        <li class="my-1"><a href="#">Privacy policy</a></li>
+                        <li class="my-1"><a href="#">Sitemap</a></li>
+                        <li class="my-1"><a href="#">Other features</a></li>
+                    </ul>
+                </div>
+                <!-- column 4 -->
+                <div class="col-sm-6 col-lg-2">
+                    <ul class="udlite-ul-footer">
+                        <li class="my-1 text-primary">Follow Us on</li>
+                        <li class="my-1"><a href="https://www.facebook.com/mavisphung43/"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;Facebook</a></li>
+                        <li class="my-1"><a href="https://www.facebook.com/mavisphung43/"><i class="fa fa-twitter" aria-hidden="true"></i>&nbsp;Twitter</a></li>
+                        <li class="my-1"><a href="https://www.facebook.com/mavisphung43/"><i class="fa fa-linkedin" aria-hidden="true"></i>&nbsp;LinkedIn</a></li>
+                    </ul>
+                </div>
+                <!-- column 5 -->
+                <!-- <div class="col-sm-6 col-lg-3 text-center">
+                  <button type="button" class="btn btn-dark" data-toggle="collapse" data-target="#global"><i class="fa fa-globe"></i>&nbsp;&nbsp;&nbsp;Languages</button>
+                  <div id="global" class="collapse col-12">
+                      <ul class="udlite-ul-footer">
+                        <a href="#"><li>English</li></a>
+                        <a href="#"><li>日本語</li></a>
+                        <a href="#"><li>中文</li></a>
+                        <a href="#"><li>한국어</li></a>
+                        <a href="#"><li>Tiếng Việt</li></a>
+                      </ul>
+                  </div>
+                </div> -->
+                <div class="col-sm-6 col-lg-3 text-lg-right">
+                    <div class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-globe"></i>&nbsp;&nbsp;Languages
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a href="#" class="dropdown-item">
+                                <li>English</li>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <li>日本語</li>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <li>中文</li>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <li>한국어</li>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <li>Tiếng Việt</li>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- logo and copy right-->
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <img src="~/images/logo.png" alt="">
+                </div>
+                <div class="col-6 text-right">
+                    &copy; 2021 - Udemy for Books
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Optional JavaScript -->
+    <script src="~/js/main.js"></script>
+    <script src="~/js/owl.carousel.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

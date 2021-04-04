@@ -1,0 +1,281 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+.round-left {
+    border-bottom-left-radius: 19px;
+    border-top-left-radius: 19px;
+}
+
+.round-right {
+    border-bottom-right-radius: 19px;
+    border-top-right-radius: 19px;
+}
+
+#btnSearch {
+    border: 1px solid #ced4da;
+    background-color: white;
+    border-right: none;
+}
+
+@media screen and (min-width: 992px) {
+    .dropdown-menu.multi-column {
+        width: 420px;
+    }
+
+    /* .w-response {
+        width: 1000px;
+    } */
+}
+
+/* @media screen and (min-width: 768px) {
+    .w-response {
+        width: 100%;
+    }
+} */
+/* .dropdown-menu.navbar {
+    width: 400px;
+} */
+
+.dropdown-menu.multi-column .dropdown-menu {
+        display: block !important;
+        position: static !important;
+        margin: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        min-width:100%;
+}
+
+.border-outline-dark {
+    border: 1px solid #000;
+}
+
+.logo-item {
+    margin: 1.6rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.udlite-container {
+    width: 100%;
+    max-width: 134rem;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 2.4rem;
+    padding-left: 2.4rem;
+}
+
+.partners__title {
+    margin-top: 0;
+    margin-bottom: 1.6rem;
+    max-width: 100%;
+}
+
+.udlite-heading-xl {
+    font-family: sf pro display,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -.02rem;
+    font-size: 1.75rem;
+}
+
+.udlite-ul-footer {
+    list-style: none;
+}
+
+.udlite-ul-footer li {
+    margin: 15px 0;
+}
+
+.udlite-ul-footer a {
+    text-decoration: none;
+    color: #444;
+    text-align: center;
+}
+
+.udlite-ul-footer a:hover {
+    text-decoration: none;
+    color: #5624d0;
+}
+
+.udlite-menu-footer {
+    width: 142px;
+    margin: 0 auto;
+    border: 1px solid #ebe6e3;
+    padding: 0;
+}
+
+.dropdown-menu .dropdown-item li:hover {
+    color: #5624d0;
+}
+
+.background-grey {
+    background-color: #ebe6e3;
+}
+
+.background-dark {
+    background-color: #444;
+}
+
+.background-dark-C1 {
+    background-color: #1C1D1F;
+}
+
+.background-white {
+    background-color: white;
+}
+
+.font-bigger {
+    font-size: 3.5rem;
+}
+
+.border-none {
+    border: none;
+}
+
+.border-outline-white {
+    border: 1px solid white;
+}
+
+
+#btnGetStarted {
+    color: white;
+}
+
+#btnGetStarted:hover {
+    background-color: white;
+    border: 1px solid #007bff;
+    color: #007bff;
+
+}
+
+.background-img-black {
+    background-image: url('../images/background-black.png');
+    background-repeat: no-repeat;
+}
+
+.text-middle-signin {
+    line-height: 82px;
+}
+
+.btn-facebook,
+.btn-google,
+.btn-apple {
+    box-shadow: 0 8px 6px -6px black;
+}
+
+.btn-facebook {
+    background-color: #3B5998;
+    color: white;
+}
+
+.btn-facebook:hover {
+    background-color: #29437c;
+    color: white;
+}
+
+.btn-google {
+    background-color: white;
+    border: 1px solid #000;
+}
+
+.btn-google:hover {
+    background-color: rgb(226, 226, 226);
+}
+
+.btn-apple {
+    background-color: white;
+    border: 1px solid #000;
+}
+
+.btn-apple:hover {
+    background-color: rgb(226, 226, 226);
+}
+
+.btn-pink {
+    background-color: #A435F0;
+    color: white;
+}
+
+.btn-pink:hover {
+    background-color: #7f1dc0;
+    color: white;
+}
+
+.text-pink {
+    color: #A435F0;
+}
+
+.px-20px {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#span-prepend-name {
+    padding: 0 20px;
+}
+
+#span-prepend-email {
+    padding: 0 17px 0 18px;
+}
+
+#span-prepend-phone {
+    padding: 0 19px 0 20px;
+}
+
+#span-prepend-address {
+    padding: 0 18px 0 18px;
+}
+
+#span-prepend-city {
+    padding: 0 18px 0 18px;
+}
+
+.span-prepend-password {
+    padding: 0 20px 0 21px;
+}
+
+.myBtn {
+    display: inline-block;
+    font-weight: 400;
+    color: white;
+    background-color: #1C1D1F;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid white;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.myBtn:hover {
+    text-decoration: none;
+    background-color: #ffffff;
+    color: #1C1D1F;
+}
+
+.text-yellow {
+    color: #F3CA8C;
+}
+
+/* .myBtn:-webkit-any-link {
+    text-decoration: none;
+} */
+
+#authorName:hover {
+    text-decoration: none;
+    color: white;
+}
+

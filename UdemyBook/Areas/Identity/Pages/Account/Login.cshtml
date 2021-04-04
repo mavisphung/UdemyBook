@@ -1,0 +1,181 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<!-- login section -->
+<div class="container my-5">
+    <div class="row mb-2">
+        <div class="col-12 text-center">
+            <h4>Sign in to Your Udemy Account</h4>
+        </div>
+    </div>
+    <hr class="w-50 m-auto py-3">
+    <div class="row">
+        @*----------------------------------*@
+        <form id="external-account" method="post" asp-page="./ExternalLogin"
+              asp-route-returnUrl="@Model.ReturnUrl"
+              class="col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4 mb-1">
+            @foreach (var provider in Model.ExternalLogins)
+            {
+                if (provider.Name.ToLower().Contains("facebook"))
+                {
+                    <button type="submit" class="btn btn-facebook w-100 mb-1"
+                            name="provider"
+                            value="@provider.Name">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                        &nbsp;
+                        Continue with <strong>@provider.DisplayName</strong>
+                    </button>
+                }
+                if (provider.Name.ToLower().Contains("google"))
+                {
+                    <button type="submit" class="btn btn-google w-100 mb-1"
+                            name="provider"
+                            value="@provider.Name">
+                        <span class="text-danger"><i class="fa fa-google" aria-hidden="true"></i></span>
+                        &nbsp;
+                        Continue with <strong>@provider.DisplayName</strong>
+                    </button>
+                }
+            }
+        </form>
+        @*------------------------------------*@
+        <div class="col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4 mb-1">
+            <a href="" class="btn btn-apple w-100">
+                <span class="text-muted"><i class="fa fa-apple" aria-hidden="true"></i></span>
+                &nbsp;
+                Continue with <strong>Apple</strong>
+            </a>
+        </div>
+    </div>
+    <div class="text-center my-4">
+        <p><big>Or</big></p>
+    </div>
+    <form method="post">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4 mb-1 form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="span-prepend-email">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <input asp-for="Input.Email" type="email" class="form-control" placeholder="Your email">
+                </div>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4 mb-1 form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text span-prepend-password">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <input asp-for="Input.Password" type="password" class="form-control" placeholder="Password">
+                </div>
+                <span asp-validation-for="Input.Password"></span>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4 mb-1 form-group">
+                <div class="checkbox">
+                    <label asp-for="Input.RememberMe">
+                        <input asp-for="Input.RememberMe" />
+                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                    </label>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4 mb-1">
+                <button class="btn btn-pink w-100" type="submit">Sign in</button>
+            </div>
+            <small class="col-12 m-auto py-4 text-center px-3">
+                or <a href="forgotPassword.html" class="text-decoration-none text-pink">Forgot password?</a>
+            </small>
+            <div class="col-12 text-center">
+                <p>
+                    Haven't an Udemy account yet? <a href="signup.html" class="text-pink text-decoration-none">Sign up here!</a>
+                </p>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- end login section -->
+@*<h1>@ViewData["Title"]</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <section>
+                <form id="account" method="post">
+                    <h4>Use a local account to log in.</h4>
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Input.Email"></label>
+                        <input asp-for="Input.Email" class="form-control" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Password"></label>
+                        <input asp-for="Input.Password" class="form-control" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label asp-for="Input.RememberMe">
+                                <input asp-for="Input.RememberMe" />
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Log in</button>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        </p>
+                        <p>
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        </p>
+                        <p>
+                            <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                        </p>
+                    </div>
+                </form>
+            </section>
+        </div>
+        <div class="col-md-6 col-md-offset-2">
+            <section>
+                <h4>Use another service to log in.</h4>
+                <hr />
+                @{
+                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                    {
+                        <div>
+                            <p>
+                                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                                for details on setting up this ASP.NET application to support logging in via external services.
+                            </p>
+                        </div>
+                    }
+                    else
+                    {
+                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                            <div>
+                                <p>
+                                    @foreach (var provider in Model.ExternalLogins)
+                                    {
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    }
+                                </p>
+                            </div>
+                        </form>
+                    }
+                }
+            </section>
+        </div>
+    </div>*@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

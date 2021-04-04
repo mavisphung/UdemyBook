@@ -1,0 +1,69 @@
+﻿@model UdemyBook.Models.ViewModels.CustomerHomeVM
+@{
+    ViewData["Title"] = "Categorize";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-5 mb-3">
+            <h5>You have searched for "<span>@Model.StrSearch</span>"</h5>
+        </div>
+        @*--------------Load found books--------------------*@
+        @if (Model.SuggestList.Count() > 0)
+        {
+            @foreach (var book in Model.SuggestList)
+            {
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card w-100 border-none">
+                        <a asp-area="Customer" asp-controller="Products" asp-action="Detail" asp-route-id="@book.ID">
+                            <img class="card-img-top p-1 w-100" src="@book.ImageUrl" alt="Card image">
+                        </a>
+                        <div class="card-body p-1">
+                            <a asp-area="Customer" asp-controller="Products" asp-action="Detail" asp-route-id="@book.ID"
+                               class="text-decoration-none text-dark">
+                                <h6 class="card-title">@book.Title</h6>
+                            </a>
+                            <p class="card-text">@book.Author.Name</p>
+                            <p class="card-text">
+                                <span class="text-primary">
+                                    4.5&nbsp;
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half-empty" aria-hidden="true"></i>
+                                </span>
+                            </p>
+                            <h5 class="card-title font-weight-bold">$@book.Price.ToString("#,## USD")</h5>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <h5>Not found books which contain your keyword</h5>
+            </div>
+        }
+
+        @*-------------End oad found books---------------------*@
+
+    </div>
+</div>
+<!-- jumbotron -->
+<section id="jumbo">
+    <div class="jumbotron jumbotron-fluid background-dark">
+        <div class="container text-white text-center">
+            <h1>Get personal reading recommendations</h1>
+            <p>The most biggest community who love reading books</p>
+            <a @*asp-area="Identity" asp-page="/Account/Register"*@
+               href="/Identity/Account/Register"
+               class="btn btn-outline-dark text-decoration-none border-outline-white" id="btnGetStarted">
+                Get started
+            </a>
+        </div>
+    </div>
+</section>
+

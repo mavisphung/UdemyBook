@@ -1,0 +1,246 @@
+﻿@model UdemyBook.Models.ViewModels.ShoppingCartVM
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron background-dark-C1 text-white">
+    <div class="container">
+        <h4 class="col-12"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Shopping Cart</h4>
+    </div>
+</div>
+<!-- code for empty cart -->
+<!-- <div class="container">
+  <div class="row text-center">
+    <div class="col-12 mb-4">
+      <big>Your cart is empty. Keep shopping to find a book</big>
+    </div>
+    <div class="col-12">
+      <a href="home.html" class="text-decoration-none btn btn-pink">Keep shopping</a>
+    </div>
+  </div>
+</div> -->
+<!-- end code for empty cart -->
+<!-- Code for non-empty cart-->
+<div class="container">
+    @if (Model.ListCart.Count() > 0)
+    {
+        <div class="row">
+            <!-- list -->
+            <div class="col-12 col-sm-12 col-md-8">
+                <h3>@Model.ListCart.Count() book(s) in your cart</h3>
+                @foreach (var item in Model.ListCart)
+                {
+                    <!-- A order detail-->
+                    <div class="container row">
+                        <!-- image -->
+                        <div class="col-4">
+                            <img src="@item.Product.ImageUrl" class="w-100 pb-2" alt="">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        Quantity
+                                    </span>
+                                </div>
+                                <input type="number" class="form-control" value="@item.Count" disabled>
+                            </div>
+                        </div>
+                        <!-- Info-->
+                        <div class="col-8">
+                            <h5>@item.Product.Title</h5>
+                            <p><small>By @item.Product.Author.Name</small></p>
+                            <div class="row">
+                                <div class="col-4"><strong class="text-pink">@item.Product.Price</strong></div>
+                                <div class="col-8 text-right">
+                                    <a asp-action="Plus" asp-route-cartId="@item.Id" class="btn btn-pink"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                    <a asp-action="Minus" asp-route-cartId="@item.Id" class="btn btn-secondary"><i class="fa fa-minus" aria-hidden="true"></i></a>
+                                    <a asp-action="Remove" asp-route-cartId="@item.Id" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                }
+            </div>
+            <!-- end list -->
+            <!-- total -->
+            <div class="col-12 col-sm-12 col-md-4">
+                <div class="container row">
+                    <div class="col-12">
+                        <h5>Order date: @DateTime.Now.ToString("MM/dd/yyyy")</h5>
+                        <h5>Shipping date: @DateTime.Now.AddDays(7).ToString("MM/dd/yyyy")</h5>
+                    </div>
+                    <div class="col-12">
+                        <h3>Total:</h3>
+                    </div>
+                    @foreach (var item in Model.ListCart)
+                    {
+                        <!-- list price -->
+                        <div class="col-12 row">
+                            <div class="col-7">
+                                <p><small>@item.Product.Title</small></p>
+                            </div>
+                            <div class="col-5">
+                                <p class="text-dark">$@item.Product.Price x @item.Count</p>
+                            </div>
+                        </div>
+                    }
+                    <div class="col-12">
+                        <h4 class="text-pink">$@Model.OrderHeader.OrderTotal.ToString("#,###.## USD")</h4>
+                    </div>
+                    <div class="col-12">
+                        <a asp-action="CheckOut" asp-route-userId="@Model.OrderHeader.AppUserId" class="btn btn-pink w-100">Check out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="text-center my-5">
+            <h4 class="text-success">There is no book in your cart!</h4>
+            <a href="/Customer/Home/Index" class="btn btn-outline-dark">Click here to continue shopping</a>
+        </div>
+    }
+
+</div>
+<!-- End code for non-empty cart-->
+<section id="suggestion">
+    <div class="container my-5">
+        <h3>Suggest for you</h3>
+        <!-- owl carousel -->
+        <div class="owl-carousel owl-theme owl-loaded">
+            <div class="owl-stage-outer">
+                <div class="owl-stage">
+                    <!-- a book -->
+                    <div class="owl-item">
+                        <div class="card w-100 border-none">
+                            <a href="#">
+                                <img class="card-img-top p-1 w-100" src="../images/book 1.png" alt="Card image">
+                            </a>
+                            <div class="card-body p-1">
+                                <a href="#" class="text-decoration-none text-dark">
+                                    <h6 class="card-title">Development for zero to hero 2021</h6>
+                                </a>
+                                <p class="card-text">Huy Phùng</p>
+                                <p class="card-text">
+                                    <span class="text-primary">
+                                        4.5&nbsp;
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star-half-empty" aria-hidden="true"></i>
+                                    </span>
+                                </p>
+                                <h5 class="card-title font-weight-bold">$12.99</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- a book -->
+                    <div class="owl-item">
+                        <div class="card w-100 border-none">
+                            <a href="#">
+                                <img class="card-img-top p-1 w-100" src="../images/book 2.png" alt="Card image">
+                            </a>
+                            <div class="card-body p-1">
+                                <a href="#" class="text-decoration-none text-dark">
+                                    <h6 class="card-title">Web Application for C# Developer</h6>
+                                </a>
+                                <p class="card-text">Huy Phùng</p>
+                                <p class="card-text">
+                                    <span class="text-primary">
+                                        4.5&nbsp;
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star-half-empty" aria-hidden="true"></i>
+                                    </span>
+                                </p>
+                                <h5 class="card-title font-weight-bold">$12.99</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- a book -->
+                    <div class="owl-item">
+                        <div class="card w-100 border-none">
+                            <a href="#">
+                                <img class="card-img-top p-1 w-100" src="../images/book 3.png" alt="Card image">
+                            </a>
+                            <div class="card-body p-1">
+                                <a href="#" class="text-decoration-none text-dark">
+                                    <h6 class="card-title">How to git and other source control</h6>
+                                </a>
+                                <p class="card-text">Huy Phùng</p>
+                                <p class="card-text">
+                                    <span class="text-primary">
+                                        4.5&nbsp;
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star-half-empty" aria-hidden="true"></i>
+                                    </span>
+                                </p>
+                                <h5 class="card-title font-weight-bold">$12.99</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- a book -->
+                    <div class="owl-item">
+                        <div class="card w-100 border-none">
+                            <a href="#">
+                                <img class="card-img-top p-1 w-100" src="../images/book 4.png" alt="Card image">
+                            </a>
+                            <div class="card-body p-1">
+                                <a href="#" class="text-decoration-none text-dark">
+                                    <h6 class="card-title">How to git and other source control</h6>
+                                </a>
+                                <p class="card-text">Huy Phùng</p>
+                                <p class="card-text">
+                                    <span class="text-primary">
+                                        4.5&nbsp;
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star-half-empty" aria-hidden="true"></i>
+                                    </span>
+                                </p>
+                                <h5 class="card-title font-weight-bold">$12.99</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- a book -->
+                    <div class="owl-item">
+                        <div class="card w-100 border-none">
+                            <a href="#">
+                                <img class="card-img-top p-1 w-100" src="../images/book 5.png" alt="Card image">
+                            </a>
+                            <div class="card-body p-1">
+                                <a href="#" class="text-decoration-none text-dark">
+                                    <h6 class="card-title">Angular 5 for fresher developer</h6>
+                                </a>
+                                <p class="card-text">Huy Phùng</p>
+                                <p class="card-text">
+                                    <span class="text-primary">
+                                        3.5&nbsp;
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star-half-empty" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    </span>
+                                </p>
+                                <h5 class="card-title font-weight-bold">$12.99</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end owl carousel -->
+    </div>
+</section>
+
