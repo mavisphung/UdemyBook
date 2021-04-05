@@ -1,5 +1,12 @@
 # UdemyBook
 A training project using C#
+# How to run
+- Install [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/) if have not installed yet
+	- In Visual Studio Installer, please tick **ASP.NET and Web Development**
+- Install [Microsoft SQL Server 2018](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) if have not installed yet
+- When installation is finished, in VS2019, File > Open > Project/Solution
+- Choose the file name **UdemyBook.sln**
+- Ctrl + F5 to run project
 
 # Before evaluating, PLEASE READ THIS
 To evaluate this project, please follow these directory:
