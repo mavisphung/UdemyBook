@@ -16,6 +16,7 @@ A training project using C#
 		- Press F5 after choosing. (At this step, MSSMS will automatically generate database with data)
 - When installation is finished, in VS2019, File > Open > Project/Solution
 - Choose the file name **UdemyBook.sln**
+- In Solution Explorer, right click on "Solution UdemyBook....", choose **Rebuild solution**
 - Ctrl + F5 to run project
 
 # Before evaluating, PLEASE READ THIS
